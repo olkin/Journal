@@ -3,3 +3,5 @@
 !*.jar
 !.gitignore
 
+!journal.pdf
+
