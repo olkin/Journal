@@ -20,15 +20,15 @@ import javax.swing.JTextField;
  */
 public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializable*/ {
 
-    private static final int HIGHEST_NOTE = 10;
-    private static final double DEFAULT_AVG_VALUE = 0.0;
+    private static final BigDecimal HIGHEST_NOTE = BigDecimal.TEN;
+    private static final BigDecimal DEFAULT_AVG_VALUE = new BigDecimal(0.0);
     private static final int DEFAULT_NUMBER_OF_TRIES = 20;
     private NotesField originalNotes;
     private NotesField improvedNotes;
     private NotesField originalTestNotes;
     private NotesField improvedTestNotes;
-    private double originalAvgTerm;
-    private double improvedAvgTerm;
+    private BigDecimal originalAvgTerm;
+    private BigDecimal improvedAvgTerm;
     private boolean isTestEnabled;
     /**
      * Format of the average notes.
@@ -62,6 +62,14 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
             this.count = notesField.count;
             this.text = notesField.text;
         }
+
+        private NotesField append(NotesField notesField){
+            NotesField sumNotes = new NotesField();
+            sumNotes.sum = this.sum + notesField.sum;
+            sumNotes.count= this.count + notesField.count;
+            sumNotes.text = this.text + notesField.text;
+            return sumNotes;
+        }
     };
     
 
@@ -87,25 +95,14 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
         updateAvg();
     }
 
-    /** Format double value using the class's format. Returns formatted double value
-     * @param avgNumber number to be formatted
-     * @return formatted number as a string
-     */
-    public static String getFormattedString(double avgNumber) {
-        return (new BigDecimal(avgNumber, avgFormat)).toString();
-    }
 
-    /** Format double value using the class's format */
-    private double getFormattedDouble(double valueToFormat) {
-        return (new BigDecimal(valueToFormat, avgFormat)).doubleValue();
-    }
 
     /** Algorithm to improve originals notes to have average as avgNeeded (in formatted form)*/
-    private NotesField improveNotes(double avgNeeded, NotesField originals) {
+    private NotesField improveNotes(BigDecimal avgNeeded, NotesField originals) {
         // First check if improvement is  needed
 
         if (originals.count != 0 && 
-                getFormattedString((double)originals.sum/originals.count).compareTo(getFormattedString(avgNeeded)) == 0)
+                getAvgNote(originals).compareTo(avgNeeded) == 0)
         {
             return new NotesField();
         }
@@ -114,17 +111,21 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
 
         do {
             // find originals.sum limits
-            int lowerLimit = (new BigDecimal((avgNeeded - 0.01) * (originals.count + count) - originals.sum)).toBigInteger().intValue();   //TODO: remove bound to scale
-            int upperLimit = (new BigDecimal((avgNeeded + 0.01) * (originals.count + count) - originals.sum)).toBigInteger().intValue();   //TODO: remove bound to scale
+            BigDecimal tmpFixedValue1 = new BigDecimal(originals.count + count);
+            BigDecimal tmpFixedValue2 = avgNeeded.multiply(tmpFixedValue1).subtract(new BigDecimal(originals.sum));
+            BigDecimal tmpFixedValue3 = new BigDecimal(0.01*(originals.count + count));         // 0.01 = 10(-2) is bound to the format
+
+            int lowerLimit = tmpFixedValue2.subtract(tmpFixedValue3).intValue();
+            int upperLimit = tmpFixedValue2.add(tmpFixedValue3).intValue();
 
             for (int sum = lowerLimit; sum <= upperLimit; sum++) {
                 // Avg of the added notes cannot be more than the highest note or less than the smallest note(1)
-                if (sum / count > HIGHEST_NOTE || sum / count < 1) {
+                if (sum / count > HIGHEST_NOTE.intValue() || sum / count < 1) {
                     continue;
                 }
 
-                double avg = (double) (originals.sum + sum) / (originals.count + count);
-                if (getFormattedString(avg).compareTo(getFormattedString(avgNeeded)) != 0) //equal strings
+                BigDecimal avg = new BigDecimal ((double) (originals.sum + sum)).divide(tmpFixedValue1, avgFormat);
+                if (avg.compareTo(avgNeeded) != 0) //equal strings
                 {
                     continue;
                 }
@@ -140,14 +141,25 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
                 int base_note = (improvement.sum) / (improvement.count);
                 int it = 0;
                 for (; it < improvement.count - improvement.sum % improvement.count; it++) {
-                    improvement.text += base_note;
+                    improvement.text += base_note == 10? 0 :base_note;
                 }
 
                 for (; it < improvement.count; it++) {
-                    improvement.text += base_note + 1;
+                    if (base_note + 1 > HIGHEST_NOTE.intValue()){
+                        // Impossible situation. Notes cannot be more than Highest note
+                        improvement = null;
+                        break;
+                    }
+
+                    // Add note to improvement text. If it's 10 replace by 1
+                    improvement.text += (base_note + 1) == 10? 0 :base_note+1;
                 }
 
-                return improvement;
+                // try again if uimprovement wasn't reached
+                if (improvement == null)
+                    continue;
+                else
+                    return improvement;
             }
 
         } while (count++ <= DEFAULT_NUMBER_OF_TRIES);
@@ -157,8 +169,8 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
     }
 
     private void improveNotesAction(NotesField originals, NotesField improvals, JTextField improvedTextField) {
-        double avgNeeded = getInputAvgValue();
-        if (avgNeeded != DEFAULT_AVG_VALUE) {
+        BigDecimal avgNeeded = getInputAvgValue();
+        if (avgNeeded.compareTo(DEFAULT_AVG_VALUE) != 0) {
             NotesField result = improveNotes(avgNeeded, originals);
             if (result != null) {
                 improvedTextField.setText(result.text);
@@ -462,11 +474,11 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
 
     }// </editor-fold>//GEN-END:initComponents
 
-    public double getImprovedAvgTerm() {
+    public BigDecimal getImprovedAvgTerm() {
         return improvedAvgTerm;
     }
 
-    public double getOriginalAvgTerm() {
+    public BigDecimal getOriginalAvgTerm() {
         return originalAvgTerm;
     }
 
@@ -487,36 +499,43 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
 
     private void updateAvg() {
 
-        double origAvgNote = (originalNotes.count != 0) ? (double) originalNotes.sum / originalNotes.count : DEFAULT_AVG_VALUE;
-        origAvgNote = getFormattedDouble(origAvgNote);
-        avgNotesText.setText(getFormattedString(origAvgNote));
+        BigDecimal origAvgNote = getAvgNote (originalNotes);
+        avgNotesText.setText(origAvgNote.toString());
 
-        double impAvgNote = (improvedNotes.count + originalNotes.count != 0) ? (double) (improvedNotes.sum + originalNotes.sum) / (improvedNotes.count + originalNotes.count) : DEFAULT_AVG_VALUE;
-        impAvgNote = getFormattedDouble(impAvgNote);
-        avgImprNotesBtn.setText(getFormattedString(impAvgNote));
+        NotesField imprAndOrigNotes = new NotesField(improvedNotes.append(originalNotes));
+        BigDecimal impAvgNote = getAvgNote(imprAndOrigNotes);
+        avgImprNotesBtn.setText(impAvgNote.toString());
 
         if (isTestEnabled) {
 
-            double origAvgTest = (originalTestNotes.count != 0) ? (double) originalTestNotes.sum / originalTestNotes.count : DEFAULT_AVG_VALUE;
-            origAvgTest = getFormattedDouble(origAvgTest);
-            avgTestText.setText(getFormattedString(origAvgTest));
+            BigDecimal origAvgTest = getAvgNote(originalTestNotes);
+            avgTestText.setText(origAvgTest.toString());
 
-            double impAvgTest = (improvedTestNotes.count + originalTestNotes.count != 0) ? (double) (improvedTestNotes.sum + originalTestNotes.sum) / (improvedTestNotes.count + originalTestNotes.count) : DEFAULT_AVG_VALUE;
-            impAvgTest = getFormattedDouble(impAvgTest);
-            avgImprTestBtn.setText(getFormattedString(impAvgTest));
+            NotesField imprAndOrigNotesTest = new NotesField(improvedTestNotes.append(originalTestNotes));
+            BigDecimal impAvgTest = getAvgNote(imprAndOrigNotesTest);
+            avgImprTestBtn.setText(impAvgTest.toString());
 
             // average between 2 average notes
-            originalAvgTerm = getFormattedDouble((origAvgTest + origAvgNote) / 2);
+            originalAvgTerm = getAvgNote(origAvgTest, origAvgNote);
+            improvedAvgTerm = getAvgNote(impAvgTest , impAvgNote);
 
-            improvedAvgTerm = getFormattedDouble((impAvgTest + impAvgNote) / 2);
-
-            avgTermText.setText(getFormattedString(originalAvgTerm));
-            avgImprTermBtn.setText(getFormattedString(improvedAvgTerm));
+            avgTermText.setText(originalAvgTerm.toString());
+            avgImprTermBtn.setText(improvedAvgTerm.toString());
         } else {
             originalAvgTerm = origAvgNote;
             improvedAvgTerm = impAvgNote;
         }
     }
+
+        private BigDecimal getAvgNote(NotesField notesInfo){
+        return (notesInfo.count != 0) ?
+            new BigDecimal(notesInfo.sum).divide(new BigDecimal(notesInfo.count), avgFormat)   :
+            DEFAULT_AVG_VALUE;
+        }
+
+        public static BigDecimal getAvgNote (BigDecimal note1, BigDecimal note2){
+            return note1.add(note2).divide(new BigDecimal(2), avgFormat); 
+        }
 
     private NotesField parseNotes(String originalNotes) {
         NotesField tmp = new NotesField();
@@ -545,7 +564,7 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
         return tmp;
     }
 
-    private double getInputAvgValue() {
+    private BigDecimal getInputAvgValue() {
         // Add dialog to know Avg note needed
         String response = JOptionPane.showInputDialog(null,
                 "What average note you'd like to get?", "Enter average note you'd like to get:",
@@ -557,21 +576,21 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
         }
 
         // Check the value specified if it has correct format (of a double)
-        double avgNeeded = DEFAULT_AVG_VALUE;
+        BigDecimal avgNeeded = DEFAULT_AVG_VALUE;
         try {
-            avgNeeded = new BigDecimal(response).doubleValue();
+            avgNeeded = new BigDecimal(response);
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, "Value specified (" + response + ") cannot be accepted - wrong format ", "Please be careful", JOptionPane.ERROR_MESSAGE);
             return DEFAULT_AVG_VALUE;
         }
 
         // Check the value if it doesn't exceed max value and is not less than min
-        if (avgNeeded < 1 || avgNeeded > HIGHEST_NOTE) {
+        if (avgNeeded.compareTo(BigDecimal.ONE) < 0 || avgNeeded.compareTo(HIGHEST_NOTE) > 0) {
             JOptionPane.showMessageDialog(null, "Value specified (" + response + ") cannot be accepted - wrong value ", "Next time please enter value from 1 to " + HIGHEST_NOTE, JOptionPane.ERROR_MESSAGE);
             return DEFAULT_AVG_VALUE;
         }
 
-        return avgNeeded;
+        return avgNeeded.round(avgFormat);
 
     }
 

@@ -1,3 +1,6 @@
+
+import java.math.BigDecimal;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -106,11 +109,11 @@ public class JournalUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void calculateAnnualResultBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateAnnualResultBtnActionPerformed
-        double originalAnnualAvg = (termPanel1.getOriginalAvgTerm() + termPanel2.getOriginalAvgTerm())/2;
-        originalAnnualResultText.setText(TermPanel.getFormattedString(originalAnnualAvg));
+        BigDecimal originalAnnualAvg = TermPanel.getAvgNote(termPanel1.getOriginalAvgTerm(), termPanel2.getOriginalAvgTerm());
+        originalAnnualResultText.setText(originalAnnualAvg.toString());
 
-        double improvedAnnualAvg = (termPanel1.getImprovedAvgTerm() + termPanel2.getImprovedAvgTerm())/2;
-        improvedAnnualResultText.setText(TermPanel.getFormattedString(improvedAnnualAvg));
+        BigDecimal improvedAnnualAvg = TermPanel.getAvgNote(termPanel1.getImprovedAvgTerm(), termPanel2.getImprovedAvgTerm());
+        improvedAnnualResultText.setText(improvedAnnualAvg.toString());
 
     }//GEN-LAST:event_calculateAnnualResultBtnActionPerformed
 
