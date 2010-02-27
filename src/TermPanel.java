@@ -63,16 +63,14 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
             this.text = notesField.text;
         }
 
-        private NotesField append(NotesField notesField){
+        private NotesField append(NotesField notesField) {
             NotesField sumNotes = new NotesField();
             sumNotes.sum = this.sum + notesField.sum;
-            sumNotes.count= this.count + notesField.count;
+            sumNotes.count = this.count + notesField.count;
             sumNotes.text = this.text + notesField.text;
             return sumNotes;
         }
     };
-    
-
 
     /** Creates new form TermPanel */
     public TermPanel() {
@@ -95,15 +93,12 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
         updateAvg();
     }
 
-
-
     /** Algorithm to improve originals notes to have average as avgNeeded (in formatted form)*/
     private NotesField improveNotes(BigDecimal avgNeeded, NotesField originals) {
         // First check if improvement is  needed
 
-        if (originals.count != 0 && 
-                getAvgNote(originals).compareTo(avgNeeded) == 0)
-        {
+        if (originals.count != 0 &&
+                getAvgNote(originals).compareTo(avgNeeded) == 0) {
             return new NotesField();
         }
 
@@ -113,18 +108,18 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
             // find originals.sum limits
             BigDecimal tmpFixedValue1 = new BigDecimal(originals.count + count);
             BigDecimal tmpFixedValue2 = avgNeeded.multiply(tmpFixedValue1).subtract(new BigDecimal(originals.sum));
-            BigDecimal tmpFixedValue3 = new BigDecimal(0.01*(originals.count + count));         // 0.01 = 10(-2) is bound to the format
+            BigDecimal tmpFixedValue3 = new BigDecimal(0.01 * (originals.count + count));         // 0.01 = 10(-2) is bound to the format
 
             int lowerLimit = tmpFixedValue2.subtract(tmpFixedValue3).intValue();
             int upperLimit = tmpFixedValue2.add(tmpFixedValue3).intValue();
 
             for (int sum = lowerLimit; sum <= upperLimit; sum++) {
                 // Avg of the added notes cannot be more than the highest note or less than the smallest note(1)
-                if (sum / count > HIGHEST_NOTE.intValue() || sum / count < 1) {
+                if ((double)sum / count > HIGHEST_NOTE.intValue() || sum / count < 1) {
                     continue;
                 }
 
-                BigDecimal avg = new BigDecimal ((double) (originals.sum + sum)).divide(tmpFixedValue1, avgFormat);
+                BigDecimal avg = new BigDecimal((double) (originals.sum + sum)).divide(tmpFixedValue1, avgFormat);
                 if (avg.compareTo(avgNeeded) != 0) //equal strings
                 {
                     continue;
@@ -141,25 +136,26 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
                 int base_note = (improvement.sum) / (improvement.count);
                 int it = 0;
                 for (; it < improvement.count - improvement.sum % improvement.count; it++) {
-                    improvement.text += base_note == 10? 0 :base_note;
+                    improvement.text += base_note == 10 ? 0 : base_note;
                 }
 
                 for (; it < improvement.count; it++) {
-                    if (base_note + 1 > HIGHEST_NOTE.intValue()){
+                    if (base_note + 1 > HIGHEST_NOTE.intValue()) {
                         // Impossible situation. Notes cannot be more than Highest note
                         improvement = null;
                         break;
                     }
 
                     // Add note to improvement text. If it's 10 replace by 1
-                    improvement.text += (base_note + 1) == 10? 0 :base_note+1;
+                    improvement.text += (base_note + 1) == 10 ? 0 : base_note + 1;
                 }
 
                 // try again if uimprovement wasn't reached
-                if (improvement == null)
+                if (improvement == null) {
                     continue;
-                else
+                } else {
                     return improvement;
+                }
             }
 
         } while (count++ <= DEFAULT_NUMBER_OF_TRIES);
@@ -499,7 +495,7 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
 
     private void updateAvg() {
 
-        BigDecimal origAvgNote = getAvgNote (originalNotes);
+        BigDecimal origAvgNote = getAvgNote(originalNotes);
         avgNotesText.setText(origAvgNote.toString());
 
         NotesField imprAndOrigNotes = new NotesField(improvedNotes.append(originalNotes));
@@ -517,7 +513,7 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
 
             // average between 2 average notes
             originalAvgTerm = getAvgNote(origAvgTest, origAvgNote);
-            improvedAvgTerm = getAvgNote(impAvgTest , impAvgNote);
+            improvedAvgTerm = getAvgNote(impAvgTest, impAvgNote);
 
             avgTermText.setText(originalAvgTerm.toString());
             avgImprTermBtn.setText(improvedAvgTerm.toString());
@@ -527,15 +523,13 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
         }
     }
 
-        private BigDecimal getAvgNote(NotesField notesInfo){
-        return (notesInfo.count != 0) ?
-            new BigDecimal(notesInfo.sum).divide(new BigDecimal(notesInfo.count), avgFormat)   :
-            DEFAULT_AVG_VALUE;
-        }
+    private BigDecimal getAvgNote(NotesField notesInfo) {
+        return (notesInfo.count != 0) ? new BigDecimal(notesInfo.sum).divide(new BigDecimal(notesInfo.count), avgFormat) : DEFAULT_AVG_VALUE;
+    }
 
-        public static BigDecimal getAvgNote (BigDecimal note1, BigDecimal note2){
-            return note1.add(note2).divide(new BigDecimal(2), avgFormat); 
-        }
+    public static BigDecimal getAvgNote(BigDecimal note1, BigDecimal note2) {
+        return note1.add(note2).divide(new BigDecimal(2), avgFormat);
+    }
 
     private NotesField parseNotes(String originalNotes) {
         NotesField tmp = new NotesField();
