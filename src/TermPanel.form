@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-        <TitledBorder justification="1" position="2" title="Term"/>
+        <TitledBorder justification="1" position="2" title="Term">
+          <ResourceString PropertyName="titleX" bundle="Bundle.properties" key="TermPanel.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </TitledBorder>
       </Border>
     </Property>
     <Property name="enabled" type="boolean" value="false"/>
   </Properties>
   <AuxValues>
-    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
-    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
@@ -27,55 +29,52 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="avgTermLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="addRmvTestBtn" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="notesLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="avgTermText" linkSize="3" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="originalTestText" linkSize="7" alignment="0" min="-2" pref="330" max="-2" attributes="0"/>
+                  <Component id="originalNotesText" linkSize="7" alignment="0" min="-2" pref="324" max="-2" attributes="0"/>
+                  <Component id="originalNotesLabel" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="resetImprovementsBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="resetTermBtn" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="notesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="addRmvTestBtn" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="avgTermLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="originalNotesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="originalNotesText" linkSize="7" alignment="0" min="-2" pref="324" max="-2" attributes="0"/>
-                          <Component id="originalTestText" linkSize="7" alignment="0" min="-2" pref="330" max="-2" attributes="0"/>
-                          <Component id="avgTermText" linkSize="3" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="avgImprTermBtn" linkSize="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="avgImprTermBtn" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="imprNotesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="improvedNotesText" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
                                   <Component id="improvedTestText" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
+                                  <Component id="improvedNotesText" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
+                                  <Component id="imprNotesLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="avgLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="avgNotesText" linkSize="3" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
                                   <Component id="avgTestText" linkSize="3" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                                  <Component id="avgLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="avgImprTestBtn" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="avgImprNotesBtn" linkSize="3" alignment="0" min="-2" pref="84" max="-2" attributes="0"/>
+                                  <Component id="avgImprLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="resetTestBtn" linkSize="9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="resetNotesBtn" linkSize="9" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="211" pref="211" max="211" attributes="0"/>
-                              <Component id="avgImprLabel" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="resetImprovementsBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="resetTermBtn" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="resetNotesBtn" linkSize="9" min="-2" max="-2" attributes="0"/>
+                          <Component id="resetTestBtn" linkSize="9" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -84,21 +83,22 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="originalNotesLabel" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="imprNotesLabel" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="avgLabel" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="avgImprLabel" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="avgLabel" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="imprNotesLabel" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="originalNotesLabel" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="notesLabel" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="originalNotesText" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="improvedNotesText" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="avgNotesText" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="avgImprNotesBtn" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="resetNotesBtn" linkSize="8" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="avgImprNotesBtn" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="avgNotesText" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="improvedNotesText" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="originalNotesText" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="notesLabel" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
@@ -111,16 +111,16 @@
               </Group>
               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="avgTermLabel" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="avgTermText" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="avgImprTermBtn" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="avgTermText" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="avgTermLabel" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="resetImprovementsBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="resetTermBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="2" attributes="0">
+                  <Component id="resetImprovementsBtn" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="resetTermBtn" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -128,7 +128,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="notesLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Notes:"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="Bundle.properties" key="TermPanel.notesLabel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="originalNotesText">
@@ -154,7 +156,7 @@
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="horizontalAlignment" type="int" value="2"/>
-        <Property name="text" type="java.lang.String" value="0"/>
+        <Property name="text" type="java.lang.String" value="0" noResource="true"/>
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
       <Events>
@@ -190,7 +192,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="addRmvTestBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Test:"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="Bundle.properties" key="TermPanel.addRmvTestBtn.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addRmvTestBtnActionPerformed"/>
@@ -198,7 +202,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="avgTermLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Avg:"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="Bundle.properties" key="TermPanel.avgTermLabel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="avgTermText">
@@ -210,28 +216,38 @@
     </Component>
     <Component class="javax.swing.JLabel" name="originalNotesLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Original:"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="Bundle.properties" key="TermPanel.originalNotesLabel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="imprNotesLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Improved:"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="Bundle.properties" key="TermPanel.imprNotesLabel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="avgLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Avg:"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="Bundle.properties" key="TermPanel.avgLabel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="avgImprLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Avg impr:"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="Bundle.properties" key="TermPanel.avgImprLabel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="resetTermBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Reset all"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="Bundle.properties" key="TermPanel.resetTermBtn.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetTermBtnActionPerformed"/>
@@ -239,7 +255,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="resetImprovementsBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Reset Improvements"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="Bundle.properties" key="TermPanel.resetImprovementsBtn.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetImprovementsBtnActionPerformed"/>
@@ -247,7 +265,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="resetNotesBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Reset"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="Bundle.properties" key="TermPanel.resetNotesBtn.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetNotesBtnActionPerformed"/>
@@ -291,7 +311,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="resetTestBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Reset"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection component="resetNotesBtn" name="text" type="property"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetTestBtnActionPerformed"/>

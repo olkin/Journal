@@ -2,6 +2,6 @@
 !*.java
 !*.jar
 !.gitignore
-
+!*.properties
 !journal.pdf
 

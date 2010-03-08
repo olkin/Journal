@@ -2,6 +2,8 @@
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 /*
@@ -23,6 +25,8 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
     private static final BigDecimal HIGHEST_NOTE = BigDecimal.TEN;
     private static final BigDecimal DEFAULT_AVG_VALUE = new BigDecimal(0.0);
     private static final int DEFAULT_NUMBER_OF_TRIES = 20;
+    private ResourceBundle messages;
+
     private NotesField originalNotes;
     private NotesField improvedNotes;
     private NotesField originalTestNotes;
@@ -74,6 +78,9 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
 
     /** Creates new form TermPanel */
     public TermPanel() {
+
+
+        messages = java.util.ResourceBundle.getBundle("Bundle");
         initComponents();
         originalNotes = new NotesField();
         improvedNotes = new NotesField();
@@ -172,7 +179,7 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
                 improvedTextField.setText(result.text);
                 changeNote(improvedTextField, improvals);
             } else {
-                JOptionPane.showMessageDialog(null, "Cannot find the values to improve existing notes to specified average note " + avgNeeded);
+                JOptionPane.showMessageDialog(null, messages.getString("CannotFimdImprovementForAvg") + avgNeeded);
             }
         }
     }
@@ -202,7 +209,7 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
         resetTestBtn.setEnabled(isTestEnabled);
 
         // Reset all test-related labels
-        originalTestText.setText(isTestEnabled ? originalTestNotes.text : "No Test");
+        originalTestText.setText(isTestEnabled ? originalTestNotes.text : messages.getString("NoTest"));
         improvedTestText.setText(isTestEnabled ? improvedTestNotes.text : "-");
         if (!isTestEnabled) {
             avgTestText.setText("-");
@@ -246,10 +253,11 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
         avgImprTermBtn = new javax.swing.JButton();
         resetTestBtn = new javax.swing.JButton();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Term", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, bundle.getString("TermPanel.border.title"), javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP)); // NOI18N
         setEnabled(false);
 
-        notesLabel.setText("Notes:");
+        notesLabel.setText(bundle.getString("TermPanel.notesLabel.text")); // NOI18N
 
         originalNotesText.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         originalNotesText.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -268,7 +276,7 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
 
         avgNotesText.setEditable(false);
         avgNotesText.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        avgNotesText.setText("0");
+        avgNotesText.setText("0"); // NOI18N
         avgNotesText.setFocusable(false);
         avgNotesText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,43 +304,43 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
         avgTestText.setText("0");
         avgTestText.setFocusable(false);
 
-        addRmvTestBtn.setText("Test:");
+        addRmvTestBtn.setText(bundle.getString("TermPanel.addRmvTestBtn.text")); // NOI18N
         addRmvTestBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addRmvTestBtnActionPerformed(evt);
             }
         });
 
-        avgTermLabel.setText("Avg:");
+        avgTermLabel.setText(bundle.getString("TermPanel.avgTermLabel.text")); // NOI18N
 
         avgTermText.setEditable(false);
         avgTermText.setText("0");
         avgTermText.setFocusable(false);
 
-        originalNotesLabel.setText("Original:");
+        originalNotesLabel.setText(bundle.getString("TermPanel.originalNotesLabel.text")); // NOI18N
 
-        imprNotesLabel.setText("Improved:");
+        imprNotesLabel.setText(bundle.getString("TermPanel.imprNotesLabel.text")); // NOI18N
 
-        avgLabel.setText("Avg:");
+        avgLabel.setText(bundle.getString("TermPanel.avgLabel.text")); // NOI18N
         avgLabel.setFocusable(false);
 
-        avgImprLabel.setText("Avg impr:");
+        avgImprLabel.setText(bundle.getString("TermPanel.avgImprLabel.text")); // NOI18N
 
-        resetTermBtn.setText("Reset all");
+        resetTermBtn.setText(bundle.getString("TermPanel.resetTermBtn.text")); // NOI18N
         resetTermBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetTermBtnActionPerformed(evt);
             }
         });
 
-        resetImprovementsBtn.setText("Reset Improvements");
+        resetImprovementsBtn.setText(bundle.getString("TermPanel.resetImprovementsBtn.text")); // NOI18N
         resetImprovementsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetImprovementsBtnActionPerformed(evt);
             }
         });
 
-        resetNotesBtn.setText("Reset");
+        resetNotesBtn.setText(bundle.getString("TermPanel.resetNotesBtn.text")); // NOI18N
         resetNotesBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetNotesBtnActionPerformed(evt);
@@ -364,7 +372,7 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
         avgImprTermBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         avgImprTermBtn.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        resetTestBtn.setText("Reset");
+        resetTestBtn.setText(resetNotesBtn.getText());
         resetTestBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetTestBtnActionPerformed(evt);
@@ -378,45 +386,43 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(avgTermLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(addRmvTestBtn, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(notesLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(avgTermText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(originalTestText, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(originalNotesText, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(originalNotesLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(notesLabel)
-                            .addComponent(addRmvTestBtn)
-                            .addComponent(avgTermLabel))
+                        .addComponent(resetImprovementsBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(originalNotesLabel)
-                            .addComponent(originalNotesText, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(originalTestText, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(avgTermText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(resetTermBtn))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(avgImprTermBtn)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(imprNotesLabel)
+                                    .addComponent(improvedTestText, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(improvedNotesText, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(improvedTestText, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(imprNotesLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(avgLabel)
                                     .addComponent(avgNotesText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(avgTestText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(avgTestText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(avgLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(avgImprTestBtn)
-                                    .addComponent(avgImprNotesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(resetTestBtn)
-                                    .addComponent(resetNotesBtn)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(211, 211, 211)
-                                .addComponent(avgImprLabel))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(resetImprovementsBtn)
+                                    .addComponent(avgImprNotesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(avgImprLabel))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(resetTermBtn)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(resetNotesBtn)
+                            .addComponent(resetTestBtn))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -429,19 +435,20 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(originalNotesLabel)
-                    .addComponent(imprNotesLabel)
+                    .addComponent(avgImprLabel)
                     .addComponent(avgLabel)
-                    .addComponent(avgImprLabel))
+                    .addComponent(imprNotesLabel)
+                    .addComponent(originalNotesLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(notesLabel)
-                    .addComponent(originalNotesText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(improvedNotesText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(avgNotesText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(resetNotesBtn)
                     .addComponent(avgImprNotesBtn)
-                    .addComponent(resetNotesBtn))
+                    .addComponent(avgNotesText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(improvedNotesText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(originalNotesText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(notesLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(addRmvTestBtn)
@@ -452,14 +459,14 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
                     .addComponent(resetTestBtn))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(avgTermLabel)
+                    .addComponent(avgImprTermBtn)
                     .addComponent(avgTermText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(avgImprTermBtn))
+                    .addComponent(avgTermLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(resetImprovementsBtn)
                     .addComponent(resetTermBtn))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {originalNotesText, originalTestText});
@@ -561,7 +568,7 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
     private BigDecimal getInputAvgValue() {
         // Add dialog to know Avg note needed
         String response = JOptionPane.showInputDialog(null,
-                "What average note you'd like to get?", "Enter average note you'd like to get:",
+                java.util.ResourceBundle.getBundle("Bundle").getString("WhatAvgNote"),java.util.ResourceBundle.getBundle("Bundle").getString("EnterAvg"),
                 JOptionPane.QUESTION_MESSAGE);
 
         // If "cancel" was pressed, ignore the action
@@ -574,13 +581,15 @@ public class TermPanel extends javax.swing.JPanel /*implements java.io.Serializa
         try {
             avgNeeded = new BigDecimal(response);
         } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(null, "Value specified (" + response + ") cannot be accepted - wrong format ", "Please be careful", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,  response + java.util.ResourceBundle.getBundle("Bundle").getString("ValueCannotBeAccepted")+ java.util.ResourceBundle.getBundle("Bundle").getString("WrongFormat"), 
+                    java.util.ResourceBundle.getBundle("Bundle").getString("BeCareful"), JOptionPane.ERROR_MESSAGE);
             return DEFAULT_AVG_VALUE;
         }
 
         // Check the value if it doesn't exceed max value and is not less than min
         if (avgNeeded.compareTo(BigDecimal.ONE) < 0 || avgNeeded.compareTo(HIGHEST_NOTE) > 0) {
-            JOptionPane.showMessageDialog(null, "Value specified (" + response + ") cannot be accepted - wrong value ", "Next time please enter value from 1 to " + HIGHEST_NOTE, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, response + java.util.ResourceBundle.getBundle("Bundle").getString("ValueCannotBeAccepted") + java.util.ResourceBundle.getBundle("Bundle").getString("WrongValue"),
+                    messages.getString("EnterValueFromTo") + HIGHEST_NOTE, JOptionPane.ERROR_MESSAGE);
             return DEFAULT_AVG_VALUE;
         }
 

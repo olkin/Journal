@@ -1,5 +1,6 @@
 
 import java.math.BigDecimal;
+import java.util.Locale;
 
 /*
  * To change this template, choose Tools | Templates
@@ -44,17 +45,18 @@ public class JournalUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        termPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Term #1"))));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+        termPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("JournalUI.termPanel1.border.border.border.title"))))); // NOI18N
 
-        termPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Term #2"));
+        termPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("JournalUI.termPanel2.border.title"))); // NOI18N
 
-        originalAnnualResultLabel.setText("Original Result:");
+        originalAnnualResultLabel.setText(bundle.getString("JournalUI.originalAnnualResultLabel.text")); // NOI18N
 
-        improvedAnnualResultLabel.setText("Improved Result:");
+        improvedAnnualResultLabel.setText(bundle.getString("JournalUI.improvedAnnualResultLabel.text")); // NOI18N
 
         improvedAnnualResultText.setForeground(new java.awt.Color(235, 16, 16));
 
-        calculateAnnualResultBtn.setText("Calculate Annual Result!");
+        calculateAnnualResultBtn.setText(bundle.getString("JournalUI.calculateAnnualResultBtn.text")); // NOI18N
         calculateAnnualResultBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 calculateAnnualResultBtnActionPerformed(evt);
@@ -121,6 +123,7 @@ public class JournalUI extends javax.swing.JFrame {
     * @param args the command line arguments
     */
     public static void main(String args[]) {
+                Locale.setDefault(new Locale("ru", "RU"));
     java.awt.EventQueue.invokeLater(new Runnable() {
     public void run() {
     new JournalUI().setVisible(true);
